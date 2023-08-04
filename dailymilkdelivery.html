@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Milk Delivery</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            background-color: hsl(0, 0%, 98%);
+            color: #333;
+            font: 100% / normal sans-serif;
+          }
+        main {
+            margin: 0 auto;
+            padding: 4rem 0;
+            width: 90%;
+            max-width: 60rem;
+          }
+          form {
+            box-sizing: border-box;
+            padding: 2rem;
+            border-radius: 1rem;
+            background-color: hsl(0, 0%, 100%);
+            border: 4px solid hsl(0, 0%, 90%);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+          }
+          
+          .full-width {
+            grid-column: span 2;
+          }
+    </style>
+</head>
+<body>
+    <form method="post" action="milk_receipt.php">
+            <label>Porter Name:</label>
+            <input type="text" name="porter_name">
+          
+            <div id="farmers-container">
+              <div class="farmer-input">
+                <label>Farmer Name:</label>
+                <input type="text" name="farmer_name[]">
+          
+                <label>Morning Milk Quantity:</label>
+                <input type="text" name="morning_milk_quantity[]">
+          
+                <label>Evening Milk Quantity:</label>
+                <input type="text" name="evening_milk_quantity[]">
+              </div>
+            </div>
+          
+            <input type="button" value="Add Farmer" onclick="addFarmerInput()">
+          
+            <label>Date:</label>
+            <input type="date" name="date">
+          
+            <input type="submit" value="Submit">
+          </form>
+          
+          <script>
+            function addFarmerInput() {
+              var container = document.getElementById("farmers-container");
+              
+              var farmerInput = document.createElement("div");
+              farmerInput.classList.add("farmer-input");
+              
+              var farmerNameLabel = document.createElement("label");
+              farmerNameLabel.textContent = "Farmer Name:";
+              
+              var farmerNameInput = document.createElement("input");
+              farmerNameInput.type = "text";
+              farmerNameInput.name = "farmer_name[]";
+              
+              var morningMilkLabel = document.createElement("label");
+              morningMilkLabel.textContent = "Morning Milk Quantity:";
+              
+              var morningMilkInput = document.createElement("input");
+              morningMilkInput.type = "text";
+              morningMilkInput.name = "morning_milk_quantity[]";
+              
+              var eveningMilkLabel = document.createElement("label");
+              eveningMilkLabel.textContent = "Evening Milk Quantity:";
+              
+              var eveningMilkInput = document.createElement("input");
+              eveningMilkInput.type = "text";
+              eveningMilkInput.name = "evening_milk_quantity[]";
+              
+              farmerInput.appendChild(farmerNameLabel);
+              farmerInput.appendChild(farmerNameInput);
+              farmerInput.appendChild(morningMilkLabel);
+              farmerInput.appendChild(morningMilkInput);
+              farmerInput.appendChild(eveningMilkLabel);
+              farmerInput.appendChild(eveningMilkInput);
+              
+              container.appendChild(farmerInput);
+            }
+          </script>
+          
+      
+</body>
+</html>

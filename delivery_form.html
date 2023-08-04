@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Form</title>
+    <style>
+        /* CSS styles for the form */
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Delivery Form</h2>
+        <form action="submit_delivery.php" method="post">
+            <div class="form-group">
+                <label for="farmer_id">Farmer's ID</label>
+                <select name="farmer_id" id="farmer_id" required>
+                    <option value="">Select Farmer's ID</option>
+                    <!-- Populate the dropdown options dynamically from the database -->
+                    <?php
+                    // Fetch farmer IDs from the database and populate the options
+                    $hostname = 'your_hostname';
+                    $username = 'your_username';
+                    $password = 'your_password';
+                    $database = 'your_database';
+
+                    $conn = new mysqli($hostname, $username, $password, $database);
+                    if ($conn->connect_error) {
+                        die('Connection failed: ' . $conn->connect_error);
+                    }
+
+                    $sql = "SELECT farmer_id FROM farmers";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['farmer_id'] . '">' . $row['farmer_id'] . '</option>';
+                        }
+                    }
+
+                    $conn->close();
+                    ?>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="milk_quantity_morning">Milk Quantity (Morning)</label>
+                <input type="number" name="milk_quantity_morning" id="milk_quantity_morning" placeholder="Enter morning milk quantity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="milk_quantity_evening">Milk Quantity (Evening)</label>
+                <input type="number" name="milk_quantity_evening" id="milk_quantity_evening" placeholder="Enter evening milk quantity" required>
+            </div>
+
+            <div class="form-group">
+                <label for="delivery_date">Day of Delivery</label>
+                <input type="date" name="delivery_date" id="delivery_date" required>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
